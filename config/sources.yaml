@@ -1,0 +1,46 @@
+fetch:
+  delay: 1.0
+  retries: 3
+
+sources:
+  openlibrary:
+    enabled: true
+    options:
+      subject: science_fiction
+      limit: 20
+      cooldown_seconds: 86400
+  gutenberg:
+    enabled: true
+    options:
+      limit: 25
+      cooldown_seconds: 86400
+  dealnews:
+    enabled: true
+    options:
+      limit: 50
+      cooldown_seconds: 1800
+  jobicy:
+    enabled: true
+    options:
+      count: 100
+      cooldown_seconds: 3600
+  arbeitnow:
+    enabled: true
+    options:
+      remote_only: true
+      limit: 50
+      cooldown_seconds: 3600
+  bbc:
+    enabled: true
+    options:
+      limit: 30
+      cooldown_seconds: 900
+  hackernews:
+    enabled: true
+    options:
+      cooldown_seconds: 300
+  pythonjobs:
+    enabled: true
+    options:
+      limit: 25
+      cooldown_seconds: 1800

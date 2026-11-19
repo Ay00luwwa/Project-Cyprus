@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Cyprus — email digest preview</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23203e35'/%3E%3Cpath d='M24 7C13 6 6 12 9 21c9 6 16-2 15-14ZM9 24 20 12' fill='none' stroke='%23c6d6a7' stroke-width='2'/%3E%3C/svg%3E">
+</head>
+<body style="margin:0;background:#f4f4ed;color:#243b32;font-family:Arial,sans-serif;line-height:1.6">
+  <main style="max-width:680px;margin:32px auto;padding:32px;background:#fff;border-radius:14px">
+    <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase">Project Cyprus / Your digest</p>
+    <h1 style="font-size:30px;line-height:1.2">A little less searching.<br>A little more finding.</h1>
+    <p>{{ total }} listing updates in the last {{ hours }} hours.</p>
+    <p style="color:#67756d;font-size:13px">Since {{ since }} · Latest change per listing · Generated locally; email delivery is opt-in.</p>
+    {% for entry in entries %}
+    <article style="padding:20px 0;border-top:1px solid #e4e8e2">
+      <p style="font-size:12px;color:#67756d;margin:0;text-transform:uppercase">{{ entry.category }} / {{ entry.source }} / {{ entry.change }}</p>
+      <h2 style="font-size:18px;margin:6px 0"><a href="{{ entry.url }}" style="color:#234b3b">{{ entry.current_title }}</a></h2>
+      {% if entry.current_price is not none %}<p>{{ entry.currency or '' }} {{ '%.2f'|format(entry.current_price) }}</p>{% endif %}
+      <p style="font-size:13px;color:#67756d">Source: {{ {'openlibrary': 'Open Library', 'gutenberg': 'Project Gutenberg', 'dealnews': 'DealNews', 'jobicy': 'Jobicy', 'arbeitnow': 'Arbeitnow', 'bbc': 'BBC News', 'hackernews': 'Hacker News', 'pythonjobs': 'Python.org Jobs', 'remotive': 'Remotive'}.get(entry.source, entry.source) }}. {% if entry.category == 'marketplace' %}Feed-listed offer; follow the original link for full conditions, expiry, shipping and current checkout price.{% elif entry.category == 'books' %}Real catalogue record or ebook; not a verified retail offer.{% elif entry.category == 'jobs' %}Check original application links, location eligibility and closing dates.{% else %}Read the original source for full reporting and context.{% endif %}</p>
+    </article>
+    {% else %}<p style="padding:24px 0;border-top:1px solid #e4e8e2">No new or changed listings in this window. Collect items with <code>cyprus run all</code>.</p>{% endfor %}
+    {% if total > entries|length %}<p>Showing the latest 100 listings. Browse the full collection in your local dashboard.</p>{% endif %}
+    <p style="border-top:1px solid #e4e8e2;padding-top:20px;font-size:12px;color:#67756d">Public sources. Local storage. Collected with care.</p>
+  </main>
+</body>
+</html>
